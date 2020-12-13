@@ -85,17 +85,20 @@ namespace GetOpenDataFromMoz
                 {
                     if (File.Exists(Path.Combine(dataType.Folder, fileName)))
                     {
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
                         Console.WriteLine("File exsists, skipping: " + fileName);
                     }
 
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
                         FileGetter.GetFile(dataType.BaseUrl + fileName, Path.Combine(dataType.Folder, fileName));
                         Console.WriteLine("Saved file: " + fileName);
                     }
                 }
                 catch (Exception ex)
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("Could not download file: " + fileName);
                     Console.WriteLine(ex);
                 }

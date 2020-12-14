@@ -80,13 +80,17 @@ namespace GetOpenDataFromMoz
                 var day = startDay.AddDays(i);
 
                 string fileName = new DirectoryInfo(dataType.Folder).Name + "_" + DateToString(day) + Consts.CsvFileExt;
+                var fileInfo = new FileInfo(Path.Combine(dataType.Folder, fileName));
 
                 try
                 {
                     if (File.Exists(Path.Combine(dataType.Folder, fileName)))
                     {
-                        Console.ForegroundColor = ConsoleColor.DarkBlue;
-                        Console.WriteLine("File exsists, skipping: " + fileName);
+                        if (fileInfo.Length != 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkBlue;
+                            Console.WriteLine("File exsists, skipping: " + fileName);
+                        }
                     }
 
                     else

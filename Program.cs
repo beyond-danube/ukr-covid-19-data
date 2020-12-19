@@ -60,7 +60,7 @@ namespace GetOpenDataFromMoz
             StartDate.Year = year;
 
             BaseUrl = Consts.BaseUrl;
-            Folder = Path.Combine(Consts.BaseFolder, folder);
+            Folder = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.dll").Length > 0 ? Path.Combine(@"..\..\..\", Consts.BaseFolder, folder) : Path.Combine(Consts.BaseFolder, folder);
 
             CreateDataFolder();
         }
@@ -89,7 +89,7 @@ namespace GetOpenDataFromMoz
                         if (fileInfo.Length != 0)
                         {
                             Console.ForegroundColor = ConsoleColor.DarkBlue;
-                            Console.WriteLine("File exsists, skipping: " + fileName);
+                            Console.WriteLine("File exsists, skipping: " + Path.Combine(dataType.Folder, fileName));
                         }
                     }
 
@@ -97,7 +97,7 @@ namespace GetOpenDataFromMoz
                     {
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
                         FileGetter.GetFile(dataType.BaseUrl + fileName, Path.Combine(dataType.Folder, fileName));
-                        Console.WriteLine("Saved file: " + fileName);
+                        Console.WriteLine("Saved file: " + Path.Combine(dataType.Folder, fileName));
                     }
                 }
                 catch (Exception ex)
@@ -117,7 +117,7 @@ namespace GetOpenDataFromMoz
 
     static class Consts
     {
-        public const string BaseFolder = @"..\..\..\data";
+        public const string BaseFolder = @"data";
         public const string CsvFileExt = ".csv";
         public const string BaseUrl = @"https://covid19.gov.ua/csv/";
     }
